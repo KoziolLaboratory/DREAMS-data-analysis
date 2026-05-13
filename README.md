@@ -52,7 +52,7 @@ This framework provides a spatially resolved view of the epigenetic and epitrans
 │   Reference annotations for selected negative ion compounds
 
 ├── names.csv
-│   Sample metadata / annotation file
+│   Reference table for standardizing modification nomenclature
 ```
 
 ---
@@ -185,8 +185,8 @@ NormalizationIntensitySlides(
 Expected input data include:
 
 - MSI-derived raw signal intensity files
-- reference modification annotation tables (`.csv`)
-- sample metadata
+- modification reference annotation tables
+- modification nomenclature mapping files
 
 Reference tables should contain:
 
