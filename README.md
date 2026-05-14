@@ -1,31 +1,29 @@
-# DREAMS Data Analysis
+# DREAMS Data Analysis Pipeline
 
 ## Overview
 
-DREAMS (**DNA RNA Elements Areal Mass Spectrometry**) is a spatial mass spectrometry–based approach developed to profile nucleic acid modifications across tissue sections, enabling spatial characterization of epigenetic and epitranscriptomic landscapes.
+DREAMS (**DNA RNA Elements Areal Mass Spectrometry**) is a spatial mass spectrometry–based analytical approach developed to characterize the spatial distribution of **free DNA and RNA modifications** across tissue sections, enabling spatial profiling of epigenetic and epitranscriptomic landscapes.
 
-This repository contains the analysis scripts and reference files used for DREAMS data processing and downstream analysis, including:
+This repository contains the core analysis scripts and reference files used for DREAMS data processing and downstream analyses, including:
 
 - preprocessing of mass spectrometry imaging (MSI) raw data
-- modification signal extraction based on reference m/z annotations
+- extraction of modification signals based on reference m/z annotations
 - intensity normalization across tissue sections
 - sample merging and technical replicate integration
 - region-specific modification analysis
-- statistical testing and visualization
-
-DREAMS was developed to investigate the spatial distribution of DNA and RNA modifications in biological tissues, with applications in studying epigenetic regulation, RNA processing, and enzyme-mediated nucleic acid modification dynamics.
+- statistical analysis and data visualization
 
 ---
 
 ## Project Background
 
-DNA and RNA modifications play essential roles in regulating gene expression and RNA processing, yet their spatial organization within tissues remains poorly understood.
+DNA and RNA modifications play essential roles in regulating gene expression and RNA processing and are fundamental to maintaining cellular functions. However, the spatial organization of these modifications within biological tissues remains poorly understood.
 
-To address this, we developed DREAMS (DNA RNA Elements Areal Mass Spectrometry), a spatial mass spectrometry framework for profiling nucleic acid modifications directly in tissue sections.
+To address this challenge, we developed DREAMS (DNA RNA Elements Areal Mass Spectrometry), a spatial mass spectrometry framework designed to directly detect and characterize the spatial distribution of free nucleic acid modifications in tissue sections.
 
-Using DREAMS in mouse brain models with **Tet1, Tet2, and Tet3 deletions**, we identified previously unrecognized regulatory roles of TET enzymes in modulating diverse nucleic acid modifications. Notably, DREAMS revealed spatially dependent regulation, including TET1-associated modulation of **N1-methyladenosine (m1A)** in RNA.
+Using a **Tet1 knockout mouse brain model**, DREAMS revealed previously unrecognized regulatory roles of TET enzymes in modulating diverse nucleic acid modifications. Notably, this approach uncovered spatially dependent regulatory patterns, including the region-specific modulation of **N1-methyladenosine (m1A)** in RNA by TET1.
 
-This framework provides a spatially resolved view of the epigenetic and epitranscriptomic landscape in the brain.
+This analytical framework provides a new technical and biological perspective for investigating the spatial epigenetic and epitranscriptomic regulation of the brain.
 
 ---
 
@@ -40,32 +38,32 @@ This framework provides a spatially resolved view of the epigenetic and epitrans
 │   Core functions for preprocessing, normalization, statistical analysis, and visualization
 
 ├── Modification_reference_Pos-dopamine.csv
-│   Reference m/z annotations for positive ion dopamine-related modifications
+│   Reference m/z annotation file for dopamine-related modifications in positive ion mode
 
 ├── Modification_reference_Pos-nucleoside tide-final.csv
-│   Reference m/z annotations for positive ion nucleoside modifications
+│   Reference annotation file for nucleoside modifications in positive ion mode
 
 ├── Modification_reference_Neg-nucleoside tide-final.csv
-│   Reference m/z annotations for negative ion nucleoside modifications
+│   Reference annotation file for nucleoside modifications in negative ion mode
 
 ├── Modification_reference_Neg-cholesterol sulfate glutamate glutamine.csv
-│   Reference annotations for selected negative ion compounds
+│   Reference annotation file for selected compounds in negative ion mode
 
 ├── names.csv
-│   Reference table for standardizing modification nomenclature
+│   Reference table for standardized modification nomenclature
 ```
 
 ---
 
 ## Requirements
 
-This pipeline is implemented in **R**.
+This analysis pipeline is implemented in **R**.
 
 Recommended environment:
 
 - R >= 4.1
 
-Required packages:
+Required R packages:
 
 ```r
 tidyverse
@@ -80,7 +78,7 @@ ggpubr
 rstudioapi
 ```
 
-Install missing packages with:
+Install missing dependencies with:
 
 ```r
 install.packages(c(
@@ -96,7 +94,7 @@ install.packages(c(
 ))
 ```
 
-For MetaboAnalystR:
+Install MetaboAnalystR:
 
 ```r
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -112,35 +110,35 @@ BiocManager::install("MetaboAnalystR")
 The core functions implemented in `MS_Modifications.R` include:
 
 | Function | Description |
-|--------|-------------|
-| `GenrateExcelforMSdata()` | Generate Excel templates for MSI raw data organization |
-| `CalculateModificationIntensity()` | Extract modification intensities based on reference m/z annotations |
-| `MergeModificationIntensity()` | Merge modification signals across samples |
-| `NormalizationIntensitySlides()` | Normalize intensity values across slides |
-| `MergeTechnicalReplicates()` | Merge technical replicates |
-| `PickBrainRegion()` | Select region-specific datasets |
+|---------|-------------|
+| `GenrateExcelforMSdata()` | Generate Excel templates for organizing MSI raw data |
+| `CalculateModificationIntensity()` | Extract modification signal intensities based on reference m/z annotations |
+| `MergeModificationIntensity()` | Merge modification intensity data across samples |
+| `NormalizationIntensitySlides()` | Normalize signal intensities across tissue sections |
+| `MergeTechnicalReplicates()` | Merge technical replicate datasets |
+| `PickBrainRegion()` | Extract region-specific datasets |
 | `volcano_plotting()` | Generate volcano plots |
-| `T_Anavo_plotting()` | Statistical comparison visualization |
-| `RunMetaboAnalystR()` | Metabolomics downstream analysis |
-| `BoxModification()` | Boxplot visualization for modification signals |
+| `T_Anavo_plotting()` | Perform statistical comparison and visualization |
+| `RunMetaboAnalystR()` | Run downstream metabolomics analysis using MetaboAnalystR |
+| `BoxModification()` | Generate boxplots for modification signal visualization |
 
 ---
 
 ## Usage
 
-Load the analysis functions:
+Load the core functions:
 
 ```r
 source("MS_Modifications.R")
 ```
 
-Run the main workflow:
+Run the main analysis workflow:
 
 ```r
 source("KoziolLab_MSdata_scripts.R")
 ```
 
-Typical workflow:
+A typical analysis workflow includes:
 
 ### 1. Generate data templates
 
@@ -152,7 +150,7 @@ GenrateExcelforMSdata(
 )
 ```
 
-### 2. Extract modification intensities
+### 2. Extract modification signal intensities
 
 ```r
 CalculateModificationIntensity(
@@ -161,7 +159,7 @@ CalculateModificationIntensity(
 )
 ```
 
-### 3. Merge samples
+### 3. Merge sample data
 
 ```r
 MergeModificationIntensity(
@@ -169,7 +167,7 @@ MergeModificationIntensity(
 )
 ```
 
-### 4. Normalize intensities
+### 4. Normalize data
 
 ```r
 NormalizationIntensitySlides(
@@ -180,37 +178,31 @@ NormalizationIntensitySlides(
 
 ---
 
-## Input Data
+## Input Data Requirements
 
-Expected input data include:
+Required input files include:
 
-- MSI-derived raw signal intensity files
-- modification reference annotation tables
-- modification nomenclature mapping files
+- MSI raw signal intensity files
+- modification reference annotation files
+- modification nomenclature standardization files
 
-Reference tables should contain:
+Reference annotation files should generally contain:
 
 - modification names
-- m/z values
+- corresponding m/z values
 - annotation metadata
 
 ---
 
 ## Output
 
-The pipeline generates:
+The analysis pipeline generates:
 
-- processed modification intensity matrices
+- modification signal intensity matrices
 - normalized datasets
-- merged sample-level tables
-- statistical comparison outputs
-- publication-ready visualizations
-
----
-
-## Citation
-
-If you use DREAMS or this analysis pipeline in your work, please cite the associated publication.
+- merged sample-level result tables
+- statistical analysis outputs
+- visualization figures
 
 ---
 
