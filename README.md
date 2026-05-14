@@ -207,5 +207,9 @@ The analysis pipeline generates:
 ---
 
 ## Contact
-
 For questions, bug reports, or collaboration inquiries, please open an issue in this repository.
+
+---
+## LICENSE
+This project is covered under the MIT License.
+
